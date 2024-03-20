@@ -94,18 +94,114 @@
 # #<,<=,>,>=
 # print({1,3}<{1,2,3,4})
 #PYTHON FROZENSETS
-fs1=frozenset({1,2,3,'a','b'})
-print(fs1,type(fs1))
-s1='Python is cool!!'
-fs2=frozenset(s1)
-print(fs2)
-fs3=frozenset()
-fs1=frozenset([1,2,3,4])
-fs2=frozenset([3,4,5,6])
-fs3=fs1.intersection(fs2)
-print(fs3)
-s1={4,10,20}
-result1=s1.intersection(fs1)
-result2=fs1-s1
-print(f'result1 type: {type(result1)}') #set
-print(f'result2 type: {type(result2)}') #frozenset
+# fs1=frozenset({1,2,3,'a','b'})
+# print(fs1,type(fs1))
+# s1='Python is cool!!'
+# fs2=frozenset(s1)
+# print(fs2)
+# fs3=frozenset()
+# fs1=frozenset([1,2,3,4])
+# fs2=frozenset([3,4,5,6])
+# fs3=fs1.intersection(fs2)
+# print(fs3)
+# s1={4,10,20}
+# result1=s1.intersection(fs1)
+# result2=fs1-s1
+# print(f'result1 type: {type(result1)}') #set
+# print(f'result2 type: {type(result2)}') #frozenset
+#####DICTIONARIES IN PYTHON
+# person= {'name':'John', 'age':30,(1,2,3):100,'age':30}
+# print(type(person))
+# d1=dict()
+# #d2={}
+# print(len(person))
+# person['name']='Dan'
+# print(person)
+# person['location']='Berlin'
+# print(person)
+# a=person['age']
+# print(a)
+# value = person.get('name','Key does not exist')
+# calue =person.get('nam','Key does not exist')
+# print(value)
+# print(calue)
+# name=person.pop('name')
+# print(name,person)
+# print(person.popitem())
+# del person['age']
+# print(person)
+# germany = {
+#     'cities':['Hamburg','Berlin','Munich'],
+#     'info': {'population':83_000_000, 'people':['Einstein','bach','Guss']}
+# }
+# print(germany['cities'])
+# print(germany['cities'][1])
+# print(germany['info']['people'][-1])
+#DICTIONARY OPERATIONS AMD METHODS
+# person ={'name': 'john', 'age':30,'location':'USA'}
+# friend=person
+# person['name']='Peter'
+# print(friend)
+# neighbor= person.copy()
+# person['location']='Europe'
+# print(neighbor,person)
+# countries={'ro':'Romania','us':'United States of America','de':'Germany'}
+# countries.update({'hu':'Hungary','fr':'France'})
+# print(countries)
+# person.clear()
+# print(person)
+#dict keys
+# person ={'name': 'john', 'age':30,'location':'USA'}
+# k=person.keys()
+# print(k)
+# print(type(k))
+# my_keys=list(k)
+# print(my_keys)
+# print(person.values())
+# print(list(person.values()))
+# #dict.items
+# print(person.items())
+# print('name' in person)
+# print(10 in person.keys()) #same
+# print('USA' in person.values())
+# print(('age',30) in person.items())
+# d1={10:'a',20:'b',30:'c'}
+# v=d1.values()
+# d1[10]='X'
+# print(v)
+# d1={10:'a',20:'b'}
+# d2={20:'c',30:'c'}
+# k1=d1.keys()
+# k2=d2.keys()
+# print(k1,k2)
+# print(k1 & k2)
+# print(k1 | k2)
+# for k in person:
+#     print(f'ket is {k}')
+# for k in person.keys():
+#     print(f'ket is {k}')
+# for v in person.values():
+#     print(f'value is {v}')
+# for k in person.keys():
+#     print(f'key is {k} and value is {person[k]}')
+# for k,v in person.items():
+#     print(f'key is {k} and values is {v}')
+#Set and Dict Comprehensions
+names = {'tom','AANNE','John','dAn'}
+names={n.capitalize() for n in names}
+print(names)
+d1={'a':1, 'b':2, 'c':3}
+d2={k*2:v*2 for k,v in d1.items()}
+print(d2)
+d3={k.upper(): v*2 for k,v in d1.items() if v%3==0}
+print(d3)
+
+years=[2017,2018,2019]
+revenues=[30000,40000,50000]
+z=zip(years,revenues)
+sales=list(z)
+print(sales)
+my_sales=dict(zip(years,revenues))
+print(my_sales)
+profit={k:v*0.15 for k,v in my_sales.items()}
+print(profit)
