@@ -127,17 +127,156 @@ import time
 # if ssh_client.get_transport().is_active() == True:
 #     print('Closing connection...')
 #     ssh_client.close()
-import myparamiko
-router = {'server_ip': '192.168.56.2', 'server_port': '22', 'user': 'ubuntunode01', 'passwd': '123'}
-client= myparamiko.connect(**router)
-shell = myparamiko.get_shell(client)
-myparamiko.send_command(shell,'uname -a')
-cmd= 'sudo groupadd developers'
-myparamiko.send_command(shell,cmd)
-myparamiko.send_command(shell,'123',2)
-myparamiko.show(shell)
-myparamiko.send_command(shell,'tail -n 1 /etc/group')
-output=myparamiko.show(shell)
-print(output)
-myparamiko.close(client)
+# import myparamiko
+# router = {'server_ip': '192.168.56.2', 'server_port': '22', 'user': 'ubuntunode01', 'passwd': '123'}
+# client= myparamiko.connect(**router)
+# shell = myparamiko.get_shell(client)
+# myparamiko.send_command(shell,'uname -a')
+# cmd= 'sudo groupadd developers'
+# myparamiko.send_command(shell,cmd)
+# myparamiko.send_command(shell,'123',2)
+# myparamiko.show(shell)
+# myparamiko.send_command(shell,'tail -n 1 /etc/group')
+# output=myparamiko.show(shell)
+# print(output)
+# myparamiko.close(client)
 
+# import myparamiko # myparamiko.py should be in the same directory with this script (or in sys.path)
+#
+# router = {'server_ip':'192.168.122.10', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco'}
+# client = myparamiko.connect(**router)
+# shell = myparamiko.get_shell(client)
+#
+# myparamiko.send_command(shell, 'terminal length 0')
+# myparamiko.send_command(shell, 'enable')
+# myparamiko.send_command(shell, 'cisco')  # this is the enable command
+# myparamiko.send_command(shell, 'show run')
+#
+# output = myparamiko.show(shell)
+# # processing the output
+# # print(output)
+# output_list = output.splitlines()
+# output_list = output_list[9:-1]
+# output = '\n'.join(output_list)
+# # print(output)
+#
+# from datetime import datetime
+# now=datetime.now()
+# year = now.year
+# month = now.month
+# day = now.day
+# hour = now.hour
+# minute = now.minute
+# file_name = f'{router["server_ip"]}_{year}_{month}_{day}.txt'
+# print(file_name)
+# with open(file_name, 'w') as f:
+#     f.write(output)
+#
+# myparamiko.close(client)
+
+# import myparamiko  # myparamiko.py should be in the same directory with this script (or in sys.path)
+#
+# router1 = {'server_ip': '192.168.122.10', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco'}
+# router2 = {'server_ip': '192.168.122.30', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco'}
+# router3 = {'server_ip': '192.168.122.20', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco'}
+#
+# routers = [router1, router2, router3]
+# for router in routers:
+#     client = myparamiko.connect(**router)
+#     shell = myparamiko.get_shell(client)
+#
+#     myparamiko.send_command(shell, 'terminal length 0')
+#     myparamiko.send_command(shell, 'enable')
+#     myparamiko.send_command(shell, 'cisco')  # this is the enable command
+#     myparamiko.send_command(shell, 'show run')
+#
+#     output = myparamiko.show(shell)
+#     # processing the output
+#     # print(output)
+#     output_list = output.splitlines()
+#     output_list = output_list[9:-1]
+#     output = '\n'.join(output_list)
+#     # print(output)
+#
+#     from datetime import datetime
+#
+#     now = datetime.now()
+#     year = now.year
+#     month = now.month
+#     day = now.day
+#     hour = now.hour
+#     minute = now.minute
+#     file_name = f'{router["server_ip"]}_{year}_{month}_{day}.txt'
+#     print(file_name)
+#     with open(file_name, 'w') as f:
+#         f.write(output)
+#
+#     myparamiko.close(client)
+
+# import myparamiko # myparamiko.py should be in the same directory with this script (or in sys.path)
+# import threading
+# def backup(router):
+#     client = myparamiko.connect(**router)
+#     shell = myparamiko.get_shell(client)
+#
+#     myparamiko.send_command(shell, 'terminal length 0')
+#     myparamiko.send_command(shell, 'enable')
+#     myparamiko.send_command(shell, 'cisco')  # this is the enable command
+#     myparamiko.send_command(shell, 'show run')
+#
+#     output = myparamiko.show(shell)
+#     # processing the output
+#     # print(output)
+#     output_list = output.splitlines()
+#     output_list = output_list[9:-1]
+#     output = '\n'.join(output_list)
+#     # print(output)
+#
+#     from datetime import datetime
+#     now=datetime.now()
+#     year = now.year
+#     month = now.month
+#     day = now.day
+#     hour = now.hour
+#     minute = now.minute
+#     file_name = f'{router["server_ip"]}_{year}_{month}_{day}.txt'
+#     print(file_name)
+#     with open(file_name, 'w') as f:
+#         f.write(output)
+#
+#     myparamiko.close(client)
+# router1 = {'server_ip':'192.168.122.10', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco'}
+# router2 = {'server_ip':'192.168.122.30', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco'}
+# router3 = {'server_ip':'192.168.122.20', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco'}
+#
+# routers = [router1,router2,router3]
+# threads= list()
+# for router in routers:
+#     th=threading.Thread(target=backup,args=(router,))
+#     threads.append(th)
+#
+# for th in threads:
+#     th.start()
+# for th in threads:
+#     th.join()
+# print(threads)
+import myparamiko
+import getpass
+
+username = input('Username:')
+password = getpass.getpass()
+
+ssh_client=myparamiko.connect('192.168.56.2', '22',  username,  password)
+remote_connection=myparamiko.get_shell(ssh_client)
+
+newuser=input('Enter the user you want to create')
+command = 'sudo useradd -m -d /home/' + newuser + ' -s /bin/bash ' + newuser
+myparamiko.send_command(remote_connection,command)
+myparamiko.send_command(remote_connection,password)
+print('A user has been created')
+
+answer=input('Display the users ! <y|n>')
+if answer=='y':
+    users = myparamiko.send_command(remote_connection,'cat /etc/passwd')
+    print(users.decode())
+myparamiko.close(ssh_client)
