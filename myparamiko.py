@@ -26,9 +26,12 @@ def close(ssh_client):
         print('Closing connection...')
         ssh_client.close()
 
-client = connect('192.168.56.2' ,'22','ubuntunode01','123')
-shell=get_shell(client)
+if __name__== '__main__':
+    router = {'server_ip': '192.168.56.2', 'server_port': '22', 'user': 'ubuntunode01', 'passwd': '123'}
+    client = connect(**router)
+    shell=get_shell(client)
 
-send_command(shell, 'ifconfig')
-output= show(shell)
-print(output)
+    send_command(shell, 'ifconfig')
+    output= show(shell)
+    print(output)
+

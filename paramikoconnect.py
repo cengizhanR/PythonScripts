@@ -106,24 +106,38 @@ import time
 #     print('Closing connection...')
 #     ssh_client.close()
 
-ssh_client = paramiko.SSHClient()
-ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+# ssh_client = paramiko.SSHClient()
+# ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#
+# # creating a dictionary for each device to connect to
+# linux = {'hostname': '192.168.56.2', 'port': '22', 'username': 'ubuntunode01', 'password': '123'}
+#
+# print(f'Connecting to {linux["hostname"]}')
+# ssh_client.connect(**linux, look_for_keys=False, allow_agent=False)
+#
+# stdin, stdout, stderr = ssh_client.exec_command('sudo useradd u3\n', get_pty=True)
+#
+# stdin.write('123\n')
+# time.sleep(2)
+# print(stderr.read().decode())
+# stdin, stdout, stderr = ssh_client.exec_command('cat /etc/passwd\n')
+# print(stdout.read().decode())
+# time.sleep(1)
+#
+# if ssh_client.get_transport().is_active() == True:
+#     print('Closing connection...')
+#     ssh_client.close()
+import myparamiko
+router = {'server_ip': '192.168.56.2', 'server_port': '22', 'user': 'ubuntunode01', 'passwd': '123'}
+client= myparamiko.connect(**router)
+shell = myparamiko.get_shell(client)
+myparamiko.send_command(shell,'uname -a')
+cmd= 'sudo groupadd developers'
+myparamiko.send_command(shell,cmd)
+myparamiko.send_command(shell,'123',2)
+myparamiko.show(shell)
+myparamiko.send_command(shell,'tail -n 1 /etc/group')
+output=myparamiko.show(shell)
+print(output)
+myparamiko.close(client)
 
-# creating a dictionary for each device to connect to
-linux = {'hostname': '192.168.56.2', 'port': '22', 'username': 'ubuntunode01', 'password': '123'}
-
-print(f'Connecting to {linux["hostname"]}')
-ssh_client.connect(**linux, look_for_keys=False, allow_agent=False)
-
-stdin, stdout, stderr = ssh_client.exec_command('sudo useradd u3\n', get_pty=True)
-
-stdin.write('123\n')
-time.sleep(2)
-print(stderr.read().decode())
-stdin, stdout, stderr = ssh_client.exec_command('cat /etc/passwd\n')
-print(stdout.read().decode())
-time.sleep(1)
-
-if ssh_client.get_transport().is_active() == True:
-    print('Closing connection...')
-    ssh_client.close()
