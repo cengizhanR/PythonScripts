@@ -25,13 +25,41 @@ def close(ssh_client):
     if ssh_client.get_transport().is_active() == True:
         print('Closing connection...')
         ssh_client.close()
+def send_from_list(shell,content):
+    for cmd in content:
+        print(f'Sending command: {cmd}')
+        send_command(shell,cmd)
+def send_from_file(shell,file):
+    with open(file, 'r') as f:
+        content = f.read().splitlines()
+    for cmd in content:
+        print(f'Sending command: {cmd}')
+        send_command(shell,cmd)
+def target_function(router):
+    ssh_client = connect(server_ip=router['server_ip'], server_port=router['server_port'], user=router['user'],
+                             passwd=router['passwd'])
 
-if __name__== '__main__':
-    router = {'server_ip': '192.168.56.2', 'server_port': '22', 'user': 'ubuntunode01', 'passwd': '123'}
-    client = connect(**router)
-    shell=get_shell(client)
-
-    send_command(shell, 'ifconfig')
-    output= show(shell)
+    shell = get_shell(ssh_client)
+    send_from_file(shell, router['config'])
+    output = show(shell)
     print(output)
+
+if __name__ == '__main__':
+    router1 = {'server_ip': '10.1.1.10', 'server_port': '22', 'user':'u1', 'passwd':'cisco', 'config':'ospf.txt'}
+    router2 = {'server_ip': '10.1.1.20', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco', 'config':'eigrp.txt'}
+    router3 = {'server_ip': '10.1.1.30', 'server_port': '22', 'user': 'u1', 'passwd': 'cisco', 'config':'router3.conf'}
+
+
+    devices = [router1, router2, router3]
+
+    my_threads = list()
+    for router in devices:
+        th = threading.Thread(target=target_function, args=(router,))
+        my_threads.append(th)
+
+    for th in my_threads:
+        th.start()
+
+    for th in my_threads:
+        th.join()
 

@@ -260,23 +260,37 @@ import time
 # for th in threads:
 #     th.join()
 # print(threads)
-import myparamiko
-import getpass
+# import myparamiko
+# import getpass
+#
+# username = input('Username:')
+# password = getpass.getpass()
+#
+# ssh_client=myparamiko.connect('192.168.56.2', '22',  username,  password)
+# remote_conne  ction=myparamiko.get_shell(ssh_client)
+#
+# newuser=input('Enter the user you want to create')
+# command = 'sudo useradd -m -d /home/' + newuser + ' -s /bin/bash ' + newuser
+# myparamiko.send_command(remote_connection,command)
+# myparamiko.send_command(remote_connection,password)
+# print('A user has been created')
+#
+# answer=input('Display the users ! <y|n>')
+# if answer=='y':
+#     users = myparamiko.send_command(remote_connection,'cat /etc/passwd')
+#     print(users.decode())
+# myparamiko.close(ssh_client)
+import paramiko
+from scp import SCPClient
 
-username = input('Username:')
-password = getpass.getpass()
+ssh_client = paramiko.SSHClient()
+ssh_client.load_system_host_keys()
+ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+ssh_client.connect(hostname= '192.168.56.2', port= 22, username= 'ubuntunode01', password= '123',
+                           look_for_keys=False, allow_agent=False)
+scp=SCPClient(ssh_client.get_transport())
+scp.put('devices.txt','aaa.txt')
 
-ssh_client=myparamiko.connect('192.168.56.2', '22',  username,  password)
-remote_connection=myparamiko.get_shell(ssh_client)
-
-newuser=input('Enter the user you want to create')
-command = 'sudo useradd -m -d /home/' + newuser + ' -s /bin/bash ' + newuser
-myparamiko.send_command(remote_connection,command)
-myparamiko.send_command(remote_connection,password)
-print('A user has been created')
-
-answer=input('Display the users ! <y|n>')
-if answer=='y':
-    users = myparamiko.send_command(remote_connection,'cat /etc/passwd')
-    print(users.decode())
-myparamiko.close(ssh_client)
+scp.put('C:/Users/cengi/OneDrive/Masaüstü/deneme', recursive=True, remote_path='/tmp')
+scp.get('/etc/passwd', 'C:\\Users\\cengi\\OneDrive\\Masaüstü\\deneme')
+scp.close()
