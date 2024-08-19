@@ -32,3 +32,5 @@ print(my_str.find('Python'))
 #in
 print('Python' in my_str)
 print('Golang' in my_str)
+
+#cengizhan
